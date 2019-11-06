@@ -17,14 +17,13 @@ pipeline {
 					npm install
 					docker -v
 				'''
-				script {
-					if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'release') {
-						sh '''
-							docker build -t waynewong/express:${env.BUILD_NUMBER} .
-							docker login --username $DOCKER_USER --password $DOCKER_PW
-							docker push waynewong/express:${env.BUILD_NUMBER}
-						'''
-					}
+				when { branch 'master' }
+				steps { 
+					sh '''
+						docker build -t waynewong/express:${env.BUILD_NUMBER} .
+						docker login --username $DOCKER_USER --password $DOCKER_PW
+						docker push waynewong/express:${env.BUILD_NUMBER}
+					'''
 				}
 			}
 		}
