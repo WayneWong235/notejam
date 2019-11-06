@@ -15,7 +15,6 @@ pipeline {
 				sh '''
 					cd express/notejam
 					npm install
-					docker -v
 				'''
 			}
 		}
@@ -24,16 +23,8 @@ pipeline {
 			when { branch 'master' }
 			steps { 
 				sh '''
-					docker build -t waynewong/express:${env.BUILD_NUMBER} .
-					docker login --username $DOCKER_USER --password $DOCKER_PW
-					docker push waynewong/express:${env.BUILD_NUMBER}
+					docker -v
 				'''
-			}
-		}
-	
-		stage('Push') {
-			steps {
-				echo "push"
 			}
 		}
 	}
