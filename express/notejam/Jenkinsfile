@@ -1,9 +1,5 @@
 pipeline {
 	agent any
-	environment {
-		registry = "waynewong/express"
-		registryCredential = 'dockerhub'
-  	}
 	tools { nodejs "nodejs10.x" }
 	
 	stages {
@@ -20,14 +16,15 @@ pipeline {
 					cd express/notejam
 					npm install
 				'''
-				script {
-					docker.build registry + ":$BUILD_NUMBER"
-				}
 			}
 		}
 
 		stage('Test') {
+			agent {
+                docker { image 'docker:stable' }
+            }
 			steps {
+				sh 'docker -v'
 				echo "test"
 			}
 		}
