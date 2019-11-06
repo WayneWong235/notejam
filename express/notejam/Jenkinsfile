@@ -4,7 +4,7 @@ pipeline {
 	stages {
 		stage('Trigger') {
 			steps {
-
+				echo "trigger"
 			}
 		}
 
@@ -16,13 +16,13 @@ pipeline {
 
 		stage('Test') {
 			steps {
-				
+				echo "test"
 			}
 		}
 	
 		stage('Push') {
 			steps {
-
+				echo "push"
 			}
 		}
 	}
