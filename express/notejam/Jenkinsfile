@@ -23,8 +23,7 @@ pipeline {
 			when { branch 'master' }
 			steps { 
 				sh '''
-					ls -l
-					docker build -t waynewong/express:${env.BUILD_NUMBER} .
+					docker build -f express/notejam/Dockerfile -t waynewong/express:${env.BUILD_NUMBER} .
 				'''
 			}
 		}
