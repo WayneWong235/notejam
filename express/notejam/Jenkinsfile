@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	tools { 
 		nodejs "nodejs10.x"
-		docker "docker" 
+		docker "default-docker" 
 	}
 	
 	stages {
