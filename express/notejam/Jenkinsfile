@@ -9,7 +9,7 @@ pipeline {
 			}
 		}
 
-		stage('Build') {
+		stage('Install') {
 			steps {
                 sh 'npm config ls'
 				sh '''
@@ -18,6 +18,9 @@ pipeline {
 					docker -v
 				'''
 			}
+		}
+
+		stage('Build') {
 			when { branch 'master' }
 			steps { 
 				sh '''
@@ -25,12 +28,6 @@ pipeline {
 					docker login --username $DOCKER_USER --password $DOCKER_PW
 					docker push waynewong/express:${env.BUILD_NUMBER}
 				'''
-			}
-		}
-
-		stage('Test') {
-			steps {
-				echo "test"
 			}
 		}
 	
