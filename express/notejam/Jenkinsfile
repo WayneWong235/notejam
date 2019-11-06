@@ -1,6 +1,10 @@
 pipeline {
 	agent any
-	tools { nodejs "nodejs10.x" }
+	tools { 
+		nodejs "nodejs10.x"
+		docker "docker" 
+	}
+	
 	stages {
 		stage('Trigger') {
 			steps {
@@ -14,6 +18,7 @@ pipeline {
 				sh '''
 					cd express/notejam
 					npm install
+					docker version
 				'''
 			}
 		}
