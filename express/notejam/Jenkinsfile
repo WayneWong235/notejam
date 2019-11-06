@@ -21,10 +21,9 @@ pipeline {
 
 		stage('Test') {
 			agent {
-                docker { image 'docker' }
+                docker { image 'docker:19.03' }
             }
 			steps {
-				sh 'docker -v'
 				echo "test"
 			}
 		}
