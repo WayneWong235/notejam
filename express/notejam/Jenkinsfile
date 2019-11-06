@@ -1,8 +1,5 @@
 pipeline {
 	agent any
-	environment {
-      DOCKER = credentials('docker-hub')
-    }
 	tools { nodejs "nodejs10.x" }
 	
 	stages {
