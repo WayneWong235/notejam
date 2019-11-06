@@ -15,14 +15,12 @@ pipeline {
 				sh '''
 					cd express/notejam
 					npm install
+					docker -v
 				'''
 			}
 		}
 
 		stage('Test') {
-			agent {
-                docker { image 'docker:19.03' }
-            }
 			steps {
 				echo "test"
 			}
