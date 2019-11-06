@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	environment {
+      DOCKER = credentials('docker-hub')
+    }
 	tools { nodejs "nodejs10.x" }
 	
 	stages {
@@ -17,6 +20,15 @@ pipeline {
 					npm install
 					docker -v
 				'''
+					if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'release') {
+						sh '''
+							docker build -t waynewong/express:${env.BUILD_NUMBER} .
+							docker login --username $DOCKER_USER --password $DOCKER_PW
+							docker push waynewong/express:${env.BUILD_NUMBER}
+						'''
+					}
+				}
+
 			}
 		}
 
