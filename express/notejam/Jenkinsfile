@@ -23,7 +23,7 @@ pipeline {
 			when { branch 'master' }
 			steps { 
 				sh '''
-					docker -v
+					docker build -t waynewong/express:${env.BUILD_NUMBER} .
 				'''
 			}
 		}
