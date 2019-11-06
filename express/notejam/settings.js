@@ -1,11 +1,21 @@
 var settings = {
   development: {
-    db: "notejam.db",
-    dsn: "sqlite://notejam.db"
+    db: {
+      host: "demo.ctotioexeoyh.ap-southeast-1.rds.amazonaws.com",
+      user: "admin",
+      password: "Waynewong24.",
+      database: "demo"
+    },
+    dsn: "mysql://admin:Waynewong24.@demo.ctotioexeoyh.ap-southeast-1.rds.amazonaws.com/demo"
   },
   test: {
-    db: "notejam_test.db",
-    dsn: "sqlite://notejam_test.db"
+    db: {
+      host: "demo.ctotioexeoyh.ap-southeast-1.rds.amazonaws.com",
+      user: "admin",
+      password: "Waynewong24.",
+      database: "demo"
+    },
+    dsn: "mysql://admin:Waynewong24.@demo.ctotioexeoyh.ap-southeast-1.rds.amazonaws.com/demo"
   }
 };
 
