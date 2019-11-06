@@ -21,7 +21,7 @@ pipeline {
 
 		stage('Test') {
 			agent {
-                docker { image 'docker:stable' }
+                docker { image 'docker' }
             }
 			steps {
 				sh 'docker -v'
