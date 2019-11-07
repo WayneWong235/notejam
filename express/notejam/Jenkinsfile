@@ -3,12 +3,6 @@ pipeline {
 	tools { nodejs "nodejs10.x" }
 	
 	stages {
-		stage('Trigger') {
-			steps {
-				echo "trigger"
-			}
-		}
-
 		stage('Install') {
 			steps {
                 sh 'npm config ls'
