@@ -38,7 +38,7 @@ pipeline {
 			steps {
 				sh '''
 					cd express/notejam/helm/apps
-					helm upgrade --install express express/ --namespace dev --set image.tag=${BUILD_NUMBER}
+					/usr/local/bin/helm upgrade --install express express/ --namespace dev --set image.tag=${BUILD_NUMBER}
 				'''
 			}
 		}
