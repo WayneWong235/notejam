@@ -21,18 +21,17 @@ pipeline {
 		}
 
 		stage('Build') {
-			when { branch 'master' }
+			when { branch 'flask' }
 			steps { 
 				sh '''
 					cd flask
-					ls -l
 					docker build -t waynewong/flask:${BUILD_NUMBER} .
 				'''
 			}
 		}
 
 		stage('Push') {
-			when { branch 'master' }
+			when { branch 'flask' }
 			steps {
 				withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
 					sh 'docker push waynewong/flask:${BUILD_NUMBER}'
@@ -41,7 +40,7 @@ pipeline {
 		}
 
 		stage('Deploy to DEV') {
-			when { branch 'master' }
+			when { branch 'flask' }
 			steps {
 				sh '''
 					cd helm/apps/dev
@@ -51,7 +50,7 @@ pipeline {
 		}
 
 		stage('Deploy to QA') {
-			when { branch 'master' }
+			when { branch 'flask' }
 			steps {
 				sh '''
 					cd helm/apps/qa
@@ -61,7 +60,7 @@ pipeline {
 		}
 
 		stage('Deploy to UAT') {
-			when { branch 'master' }
+			when { branch 'flask' }
 			steps {
 				sh '''
 					cd helm/apps/uat
@@ -71,7 +70,7 @@ pipeline {
 		}
 
 		stage('Deploy to Prod') {
-			when { branch 'master' }
+			when { branch 'flask' }
 			steps {
 				sh '''
 					cd helm/apps/prod
