@@ -26,7 +26,9 @@ pipeline {
 					cd express/notejam
 					ls -l
 					docker build -t waynewong/express:${BUILD_NUMBER} .
-					docker login --username $DOCKER_USER --password $DOCKER_PW
+					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DOCKER_USER', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+						docker login --username $USERNAME --password $PASSWORD
+					}
                     docker push waynewong/express:${env.BUILD_NUMBER}
 				'''
 			}
