@@ -38,8 +38,8 @@ pipeline {
 			steps {
 				sh '''
 					cd express/notejam/helm/apps
-					/usr/local/bin/kubectl version
-					/usr/local/bin/helm version
+					sudo /usr/local/bin/kubectl version
+					sudo /usr/local/bin/helm version
 				'''
 			}
 		}
