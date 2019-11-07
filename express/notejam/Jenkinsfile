@@ -32,5 +32,15 @@ pipeline {
 				}
 			}
 		}
+
+		stage('Deploy to DEV') {
+			when { branch 'master' }
+			steps {
+				sh '''
+					cd express/notejam/helm/apps
+					helm upgrade --install express express/ --namespace dev --set image.tag=${BUILD_NUMBER}
+				'''
+			}
+		}
 	}
 }
