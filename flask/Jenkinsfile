@@ -14,8 +14,7 @@ pipeline {
 		stage('Test') {
 			steps { 
 				sh '''
-					cd flask
-					python tests.py
+					docker build -f Dockerfile.test -t test/flask:${BUILD_NUMBER} .
 				'''
 			}
 		}
