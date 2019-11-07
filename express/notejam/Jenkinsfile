@@ -24,15 +24,6 @@ pipeline {
 			}
 		}
 
-		stage('Test') {
-			steps { 
-				sh '''
-					cd express/notejam
-					./node_modules/mocha/bin/mocha tests
-				'''
-			}
-		}
-
 		stage('Push') {
 			when { branch 'master' }
 			steps {

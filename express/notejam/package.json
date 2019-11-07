@@ -29,7 +29,6 @@
     "should-http": "*",
     "static-favicon": "~1.0.0",
     "superagent": "*",
-    "supertest": "0.*.*",
-    "sqlite3": "*"
+    "supertest": "0.*.*"
   }
 }
