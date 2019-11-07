@@ -33,7 +33,7 @@ pipeline {
 		stage('Push') {
 			when { branch 'master' }
 			steps { 
-				withDockerRegistry([ credentialsId: "45ac2a60-f9db-45d4-b640-109d7377c68d", url: "" ]) {
+				withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
 					sh 'docker push waynewong/express:${BUILD_NUMBER}'
 				}
 			}
