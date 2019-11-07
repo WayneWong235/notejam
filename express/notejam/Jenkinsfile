@@ -26,7 +26,6 @@ pipeline {
 					cd express/notejam
 					ls -l
 					docker build -t waynewong/express:${BUILD_NUMBER} .
-					docker push waynewong/express:${BUILD_NUMBER}
 				'''
 			}
 		}
