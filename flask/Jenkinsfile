@@ -1,15 +1,19 @@
 pipeline {
 	agent any
-	tools { nodejs "nodejs10.x" }
 	
 	stages {
 		stage('Install') {
 			steps {
-                sh 'npm config ls'
 				sh '''
-					cd express/notejam
-					npm install
+					cd flask/notejam
+					/usr/local/bin/pip install -r requirements.txt
 				'''
+			}
+		}
+
+		stage('Test') {
+			steps { 
+				sh 'python tests.py'
 			}
 		}
 
@@ -17,16 +21,10 @@ pipeline {
 			when { branch 'master' }
 			steps { 
 				sh '''
-					cd express/notejam
+					cd flask/notejam
 					ls -l
-					docker build -t waynewong/express:${BUILD_NUMBER} .
+					docker build -t waynewong/flask:${BUILD_NUMBER} .
 				'''
-			}
-		}
-
-		stage('Test') {
-			steps { 
-				echo 'Run test'
 			}
 		}
 
@@ -34,7 +32,7 @@ pipeline {
 			when { branch 'master' }
 			steps {
 				withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
-					sh 'docker push waynewong/express:${BUILD_NUMBER}'
+					sh 'docker push waynewong/flask:${BUILD_NUMBER}'
 				}
 			}
 		}
@@ -43,8 +41,8 @@ pipeline {
 			when { branch 'master' }
 			steps {
 				sh '''
-					cd express/notejam/helm/apps/dev
-					sudo /usr/local/bin/helm upgrade --install express-dev express/ --namespace dev --set image.tag=${BUILD_NUMBER}
+					cd helm/apps/dev
+					sudo /usr/local/bin/helm upgrade --install flask-dev flask/ --namespace dev --set image.tag=${BUILD_NUMBER}
 				'''
 			}
 		}
@@ -53,8 +51,8 @@ pipeline {
 			when { branch 'master' }
 			steps {
 				sh '''
-					cd express/notejam/helm/apps/qa
-					sudo /usr/local/bin/helm upgrade --install express-qa express/ --namespace qa --set image.tag=${BUILD_NUMBER}
+					cd helm/apps/qa
+					sudo /usr/local/bin/helm upgrade --install flask-qa flask/ --namespace qa --set image.tag=${BUILD_NUMBER}
 				'''
 			}
 		}
@@ -63,8 +61,8 @@ pipeline {
 			when { branch 'master' }
 			steps {
 				sh '''
-					cd express/notejam/helm/apps/uat
-					sudo /usr/local/bin/helm upgrade --install express-uat express/ --namespace uat --set image.tag=${BUILD_NUMBER}
+					cd helm/apps/uat
+					sudo /usr/local/bin/helm upgrade --install flask-uat flask/ --namespace uat --set image.tag=${BUILD_NUMBER}
 				'''
 			}
 		}
@@ -73,8 +71,8 @@ pipeline {
 			when { branch 'master' }
 			steps {
 				sh '''
-					cd express/notejam/helm/apps/prod
-					sudo /usr/local/bin/helm upgrade --install express-prod express/ --namespace prod --set image.tag=${BUILD_NUMBER}
+					cd helm/apps/prod
+					sudo /usr/local/bin/helm upgrade --install flask-prod flask/ --namespace prod --set image.tag=${BUILD_NUMBER}
 				'''
 			}
 		}
