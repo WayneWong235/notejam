@@ -1,16 +1,16 @@
-# Default values express.
+# Default values flask.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: waynewong/express
+  repository: waynewong/flask
   tag: 0.0.1
   pullPolicy: Always
 service:
-  name: express
+  name: flask
   type: LoadBalancer
-  externalPort: 3000
-  internalPort: 3000
+  externalPort: 5000
+  internalPort: 5000
 ingress:
   enabled: true
   # Used to create an Ingress record.
