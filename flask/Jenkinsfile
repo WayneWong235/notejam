@@ -24,7 +24,7 @@ pipeline {
 			when { branch 'master' }
 			steps { 
 				sh '''
-					cd flask/notejam
+					cd flask
 					ls -l
 					docker build -t waynewong/flask:${BUILD_NUMBER} .
 				'''
