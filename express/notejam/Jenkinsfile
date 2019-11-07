@@ -34,9 +34,9 @@ pipeline {
 		stage('Push') {
 			when { branch 'master' }
 			steps { 
-				sh '''
-					docker push waynewong/express:${BUILD_NUMBER}
-				'''
+				withDockerRegistry([ credentialsId: "DOCKER_USER", url: "" ]) {
+					sh 'docker push waynewong/express:${BUILD_NUMBER}'
+				}
 			}
 		}
 	}
