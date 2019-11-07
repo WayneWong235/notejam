@@ -37,8 +37,38 @@ pipeline {
 			when { branch 'master' }
 			steps {
 				sh '''
-					cd express/notejam/helm/apps
+					cd express/notejam/helm/apps/dev
 					sudo /usr/local/bin/helm upgrade --install express express/ --namespace dev --set image.tag=${BUILD_NUMBER}
+				'''
+			}
+		}
+
+		stage('Deploy to QA') {
+			when { branch 'master' }
+			steps {
+				sh '''
+					cd express/notejam/helm/apps/qa
+					sudo /usr/local/bin/helm upgrade --install express express/ --namespace qa --set image.tag=${BUILD_NUMBER}
+				'''
+			}
+		}
+
+		stage('Deploy to UAT') {
+			when { branch 'master' }
+			steps {
+				sh '''
+					cd express/notejam/helm/apps/uat
+					sudo /usr/local/bin/helm upgrade --install express express/ --namespace uat --set image.tag=${BUILD_NUMBER}
+				'''
+			}
+		}
+
+		stage('Deploy to Prod') {
+			when { branch 'master' }
+			steps {
+				sh '''
+					cd express/notejam/helm/apps/prod
+					sudo /usr/local/bin/helm upgrade --install express express/ --namespace prod --set image.tag=${BUILD_NUMBER}
 				'''
 			}
 		}
