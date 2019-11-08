@@ -29,6 +29,14 @@ spec:
             httpGet:
               path: /
               port: {{ .Values.service.internalPort }}
+          env:
+      {{- range $key, $value := .Values.app.env.fromSecret.data }}
+        - name: {{ $key }}
+          valueFrom:
+            secretKeyRef:
+                name: {{ .Values.app.env.fromSecret.name  }}
+                key: {{ $value | quote }}
+      {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
