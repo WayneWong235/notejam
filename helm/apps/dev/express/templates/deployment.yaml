@@ -1,3 +1,4 @@
+{{- $secretname  := .Values.env.fromSecret.name -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -34,7 +35,7 @@ spec:
           - name: {{ $key }}
             valueFrom:
               secretKeyRef:
-                  name: {{ .Values.secret.name  }}
+                  name: {{ $secretname }}
                   key: {{ $value | quote }}
 {{- end }}
           resources:
