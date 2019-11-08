@@ -35,8 +35,8 @@ resources: {}
   #  memory: 128Mi
 
 env:
-  fromsecret:
+  from:
+    name: db-user-pass
     data:
       DB_USERNAME: username
       DB_PASSWD: password
-    name: db-user-pass
