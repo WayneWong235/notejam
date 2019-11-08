@@ -30,11 +30,11 @@ spec:
               path: /
               port: {{ .Values.service.internalPort }}
           env:
-{{- range $key, $value := .Values.env.fromSecret.data }}
+{{- range $key, $value := .Values.env.fromsecret.data }}
           - name: {{ $key }}
             valueFrom:
               secretKeyRef:
-                  name: {{ .Values.env.fromSecret.name  }}
+                  name: {{ .Values.env.fromsecret.name  }}
                   key: {{ $value | quote }}
 {{- end }}
           resources:
